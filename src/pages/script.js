@@ -167,7 +167,7 @@ function initPage(path) {
                     var br = document.createElement("br")
 
                     a.innerText = file
-                    a.href = `javascript:launchApp('${path.replace(/\\/g, "\\\\")}${getOSFileDiv()}${file}')`
+                    a.href = `javascript:launchApp('${path.replace(/\\/g, "\\\\")}${getOSFileDiv()}${getOSFileDiv()}${file}')`
                     div.title = file
                     div.className = "f-holder"
 

@@ -6,20 +6,11 @@
     </head>
 
     <body style="background-color: rgb(1, 73, 141);">
-        <header id="titlebar">
-            <div id="drag-area">
-                
-            </div>
-        </header>
         <div class="content">
             <div class="nav top">
                 <a href="javascript:history.go(-1);"><img class="icon left" src="./assets/bootstrap-icons/arrow-left.svg"></a>
                 <span style="color:#33333300;">---</span>
                 <a href="javascript:history.go(+1);"><img class="icon" style="position:fixed;left:48px;" src="./assets/bootstrap-icons/arrow-right.svg"></a>
-
-                <a href="javascript:quit()"><img class="icon right red" src="./assets/bootstrap-icons/x-square.svg"></a>
-                <a href="javascript:toggleMaximized()"><img id="tm" class="icon right" src="./assets/bootstrap-icons/fullscreen.svg"></a>
-                <a href="javascript:ipcRenderer.send('event-ping', 'mini');"><img class="right icon" src="./assets/bootstrap-icons/chevron-down.svg"></a>
 
                 <a href="?s=show" id="opt1"><img class="icon right" src="./assets/bootstrap-icons/gear-wide-connected.svg"></a>
             </div>
