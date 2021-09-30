@@ -1,0 +1,20 @@
+{
+  "name": "electron-file-explorer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "electron .",
+    "start": "electron .",
+    "build": "tsc -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "eggsnham07",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^15.0.0"
+  },
+  "dependencies": {
+    "drivelist": "^9.2.4"
+  }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="./script.js"></script>
+        <link rel="stylesheet" href="./css/styling.css">
+    </head>
+
+    <body style="background-color: rgb(1, 73, 141);">
+        <header id="titlebar">
+            <div id="drag-area">
+                
+            </div>
+        </header>
+        <div class="content">
+            <div class="nav top">
+                <a href="javascript:history.go(-1);"><img class="icon left" src="../assets/bootstrap-icons/arrow-left.svg"></a>
+                <span style="color:#33333300;">---</span>
+                <a href="javascript:history.go(+1);"><img class="icon" style="position:fixed;left:48px;" src="../assets/bootstrap-icons/arrow-right.svg"></a>
+
+                <a href="javascript:quit()"><img class="icon right red" src="../assets/bootstrap-icons/x-square.svg"></a>
+                <a href="javascript:toggleMaximized()"><img id="tm" class="icon right" src="../assets/bootstrap-icons/fullscreen.svg"></a>
+                <a href="javascript:ipcRenderer.send('event-ping', 'mini');"><img class="right icon" src="../assets/bootstrap-icons/chevron-down.svg"></a>
+
+                <a href="?s=show" id="opt1"><img class="icon right" src="../assets/bootstrap-icons/gear-wide-connected.svg"></a>
+            </div>
+            <div class="context-menu" id="cm" style="display: none;">
+                <a href="javascript:openTerminal()">Open terminal here</a>
+            </div>
+            <div id="sidePanel">
+                <br>
+                <a href="javascript:location.href = `?path=${os.homedir()}`">Home</a>
+                <br><br>
+                <a href="javascript:location.href = `?path=${os.homedir()}${getOSFileDiv()}Desktop`">Desktop</a>
+                <br><br>
+                <a href="javascript:location.href = `?path=${os.homedir()}${getOSFileDiv()}Documents`">Documents</a>
+                <br><br>
+                <a href="javascript:location.href = `?path=${os.homedir()}${getOSFileDiv()}Downloads`">Downloads</a>
+                <br><br>
+                <a href="javascript:location.href = `?path=${os.homedir()}${getOSFileDiv()}Pictures`">Pictures</a>
+                <br><br>
+                <a href="javascript:location.href = `?path=${os.homedir()}${getOSFileDiv()}Videos`">Videos</a>
+            </div>
+            <br><br><br><br>
+            <main id="fe"></main>
+        </div>
+        <script>
+             initPage(os.homedir())
+
+             document.onclick = hideMenu
+             document.oncontextmenu = openMenu
+
+             function openMenu(e) {
+                e.preventDefault()
+                if(document.getElementById("cm").style.display == "block") hideMenu()
+                else {
+                    var menu = document.getElementById("cm")
+                    menu.style.display = "block"
+                    menu.style.left = e.pageX + "px"
+                    menu.style.top = e.pageY + "px"
+                }
+             }
+
+             function hideMenu() {
+                document.getElementById("cm").style.display = "none"
+             }
+        </script>
+    </body>
+</html>
