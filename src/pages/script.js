@@ -252,11 +252,6 @@ function initPage(path) {
             }
         })
     }
-
-    function showHidden() {
-
-        initPage(path)
-    }
 }
 
 function showSettings() {
@@ -325,4 +320,8 @@ function toggleMaximized() {
             }
         }, 500)
     })
+}
+
+function openHome(path) {
+    return location.href = `?path=${os.homedir()}${getOSFileDiv()}${path}`
 }

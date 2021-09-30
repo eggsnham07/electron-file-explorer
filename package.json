@@ -19,7 +19,7 @@
     "test": "electron .",
     "start": "electron .",
     "buildWin": "electron-builder --win --x64",
-    "buildLinux": "electron-builder --linux pacman AppImage"
+    "buildLinux": "electron-builder --linux pacman AppImage deb"
   },
   "keywords": [],
   "author": {
