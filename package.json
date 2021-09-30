@@ -3,15 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "build": {
+    "appId": "com.eggsnham.efe",
+    "linux": {
+      "executableName": "ElectronFileExplorer",
+      "icon": "build/icon256x256.png",
+      "category": "Utility"
+    }
+  },
   "scripts": {
     "test": "electron .",
     "start": "electron .",
-    "build": "tsc -p tsconfig.json"
+    "buildWin": "electron-builder --win --x64 msi",
+    "buildLinux": "electron-builder --linux pacman AppImage"
   },
   "keywords": [],
-  "author": "eggsnham07",
+  "author": {
+    "name": "eggsnham07",
+    "email": "eggsnham07@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^15.0.0"
+    "electron": "^15.0.0",
+    "electron-builder": "^22.11.7"
   }
 }
