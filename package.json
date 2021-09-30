@@ -13,8 +13,5 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^15.0.0"
-  },
-  "dependencies": {
-    "drivelist": "^9.2.4"
   }
 }
