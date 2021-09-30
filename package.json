@@ -9,12 +9,16 @@
       "executableName": "ElectronFileExplorer",
       "icon": "build/icon256x256.png",
       "category": "Utility"
+    },
+    "win": {
+      "icon": "build/icon256x256.png",
+      "target": "msi"
     }
   },
   "scripts": {
     "test": "electron .",
     "start": "electron .",
-    "buildWin": "electron-builder --win --x64 msi",
+    "buildWin": "electron-builder --win --x64",
     "buildLinux": "electron-builder --linux pacman AppImage"
   },
   "keywords": [],

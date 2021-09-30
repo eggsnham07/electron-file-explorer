@@ -131,7 +131,7 @@ function initPage(path) {
                         div.title = file
                         div.className = "f-holder"
                         img.className = "folder"
-                        img.src = "../assets/bootstrap-icons/folder-fill.svg"
+                        img.src = "./assets/bootstrap-icons/folder-fill.svg"
                         
                         div.appendChild(img)
                         div.appendChild(br)
@@ -150,7 +150,7 @@ function initPage(path) {
                         div.className = "f-holder"
                         div.title = file
                         img.className = "folder"
-                        img.src = "../assets/bootstrap-icons/folder-fill.svg"
+                        img.src = "./assets/bootstrap-icons/folder-fill.svg"
                         
                         div.appendChild(img)
                         div.appendChild(br)
@@ -172,15 +172,15 @@ function initPage(path) {
                     div.className = "f-holder"
 
                     img.className = "file"
-                    if(file.endsWith(".txt")) img.src = "../assets/bootstrap-icons/file-earmark-text-fill.svg"
-                    else if(code.includes(   `.${file.split(".")[file.split(".").length-1]}`)) img.src = "../assets/bootstrap-icons/file-earmark-code-fill.svg"
+                    if(file.endsWith(".txt")) img.src = "./assets/bootstrap-icons/file-earmark-text-fill.svg"
+                    else if(code.includes(   `.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/file-earmark-code-fill.svg"
                     else if(image.includes(  `.${file.split(".")[file.split(".").length-1]}`)) {
                         if(require("./fs.json").showPic) img.src = `${path}${getOSFileDiv()}${file}`
-                        else img.src = "../assets/bootstrap-icons/file-earmark-image-fill.svg"
+                        else img.src = "./assets/bootstrap-icons/file-earmark-image-fill.svg"
                     }
-                    else if(zip.includes(    `.${file.split(".")[file.split(".").length-1]}`)) img.src = "../assets/bootstrap-icons/file-earmark-zip-fill.svg"
-                    else if(package.includes(`.${file.split(".")[file.split(".").length-1]}`)) img.src = "../assets/bootstrap-icons/box-seam.svg"
-                    else if(bin.includes(    `.${file.split(".")[file.split(".").length-1]}`)) img.src = "../assets/bootstrap-icons/file-earmark-binary-fill.svg"
+                    else if(zip.includes(    `.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/file-earmark-zip-fill.svg"
+                    else if(package.includes(`.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/box-seam.svg"
+                    else if(bin.includes(    `.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/file-earmark-binary-fill.svg"
 
                     else if(file.endsWith(`.desktop`)) {
                         const iconLoc = `${os.homedir()}${getOSFileDiv()}.local${getOSFileDiv()}share${getOSFileDiv()}icons${getOSFileDiv()}hicolor`
@@ -226,14 +226,14 @@ function initPage(path) {
                             }
 
                             else {
-                                img.src = `../assets/bootstrap-icons/file-earmark-image-fill.svg`
+                                img.src = `./assets/bootstrap-icons/file-earmark-image-fill.svg`
                             }
                         } else {
                             console.log("Not steam game...")
                             if(image.includes(sIcon.split(".")[sIcon.split(".").length-1])) img.src = sIcon
                         }
                     }
-                    else img.src = "../assets/bootstrap-icons/file-earmark-fill.svg"
+                    else img.src = "./assets/bootstrap-icons/file-earmark-fill.svg"
 
                     if(dev) {
                         div.appendChild(img)
@@ -266,7 +266,7 @@ function showSettings() {
     document.getElementById("fileSettings").picShow.checked = require("./fs.json").showPic
     document.getElementById("terminal").value = require("./sys.json").terminal
     document.getElementById("opt1").href = `?s=hide&path=${os.homedir()}`
-    document.getElementById("opt1").innerHTML = `<img class="icon right" src="../assets/bootstrap-icons/house-door-fill.svg">`
+    document.getElementById("opt1").innerHTML = `<img class="icon right" src="./assets/bootstrap-icons/house-door-fill.svg">`
 
     document.getElementById("fileSettings").showHidden.addEventListener("click", (e) => {
         fs.writeFileSync(__dirname + "/fs.json", JSON.stringify({
@@ -314,11 +314,11 @@ function toggleMaximized() {
                 if(returnJson.state == true) {
                     ipcRenderer.send("event-ping", "minimize")
                     console.log("Minimizing...")
-                    document.getElementById("tm").src = "../assets/bootstrap-icons/fullscreen.svg"
+                    document.getElementById("tm").src = "./assets/bootstrap-icons/fullscreen.svg"
                 } else {
                     ipcRenderer.send("event-ping", "maximize")
                     console.log("Maximizing...")
-                    document.getElementById("tm").src = "../assets/bootstrap-icons/fullscreen-exit.svg"
+                    document.getElementById("tm").src = "./assets/bootstrap-icons/fullscreen-exit.svg"
                 }
 
                 clearInterval(interval)

@@ -1,0 +1,20 @@
+{
+    "icons": [
+        "folder-fill.svg",
+        "file-earmark-text-fill.svg",
+        "file-earmark-code-fill.svg",
+        "file-earmark-image-fill.svg",
+        "file-earmark-zip-fill.svg",
+        "box-seam.svg",
+        "file-earmark-binary-fill.svg",
+        "file-earmark-fill.svg",
+        "house-door-fill.svg",
+        "fullscreen.svg",
+        "fullscreen-exit.svg",
+        "arrow-left.svg",
+        "arrow-right.svg",
+        "x-square.svg",
+        "chevron-down.svg",
+        "gear-wide-connected.svg"
+    ]
+}
