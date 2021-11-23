@@ -1,25 +1,26 @@
 {
   "name": "electron-file-explorer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "app.js",
   "build": {
     "appId": "com.eggsnham.efe",
+    "files": ["**/*", "build/icon256x256.*"],
+    
     "linux": {
       "executableName": "ElectronFileExplorer",
       "icon": "build/icon256x256.png",
       "category": "Utility"
     },
     "win": {
-      "icon": "build/icon256x256.png",
-      "target": "msi"
+      "icon": "build/icon256x256.png"
     }
   },
   "scripts": {
     "test": "electron .",
     "start": "electron .",
     "buildWin": "electron-builder --win --x64",
-    "buildLinux": "electron-builder --linux pacman AppImage deb"
+    "buildLinux": "electron-builder --linux AppImage deb"
   },
   "keywords": [],
   "author": {
