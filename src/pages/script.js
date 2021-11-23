@@ -92,7 +92,11 @@ function programStarter() {
 
 function launchApp(path) {
     console.log(`Launching: '${programStarter()}"${path}"'`)
-    require("child_process").execSync(`${programStarter()}"${path}"`)
+    if(path.endsWith(".exe")) {
+        require("child_process").execSync(`start "${path}"`)
+    } else {
+        require("child_process").execSync(`${programStarter()}"${path}"`)
+    }
 }
 
 const drive = getOSDrive()
@@ -334,16 +338,18 @@ function showSettings() {
 }
 
 function openTerminal() {
+    if(process.platform == "win32") {
+        require("child_process").exec(`start cmd.exe /K "cd ${cPath || lastPath}"`)
+        return;
+    }
     if(!localStorage.getItem("terminal")) {
         alert("Could not launch terminal! Set the terminal command in settings!")
+        return;
     }
     else if(process.platform == "linux" && localStorage.getItem("terminal") != undefined) {
         console.log(`${localStorage.getItem("terminal")} --working-directory=${cPath || lastPath}`)
         require("child_process").exec(`${localStorage.getItem("terminal")} --working-directory=${cPath || lastPath}`)
-    }
-
-    if(process.platform == "win32") {
-        require("child_process").exec(`cmd.exe /K "cd ${cPath || lastPath}"`)
+        return;
     }
 }
 
