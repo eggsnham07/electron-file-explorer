@@ -119,7 +119,7 @@ function initPage(path) {
         reqPath = fs.readdirSync(path)
     }
 
-    cPath = path
+    cPath = path.replace(/\\\\/, "\\").replace(/\/\//, "/")
 
     if(reqPath) {
         reqPath.forEach((file) => {
