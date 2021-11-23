@@ -9,11 +9,11 @@
     
     "linux": {
       "executableName": "ElectronFileExplorer",
-      "icon": "build/icon256x256.png",
+      "icon": "./build/icon256x256.png",
       "category": "Utility"
     },
     "win": {
-      "icon": "build/icon256x256.png"
+      "icon": "./build/icon256x256.png"
     }
   },
   "scripts": {

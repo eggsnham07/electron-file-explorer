@@ -52,6 +52,21 @@ body a {
     height: 30px;
     margin-left: 12px;
     top: 12px;
+    z-index: 5;
+}
+
+.path {
+    position: absolute;
+    top: 5px;
+    left: 150px;
+    background-color: rgb(2, 73, 144);
+    border-radius: 10px;
+    padding: 5px;
+    width: 50%;
+    z-index: 2;
+    color: #eee;
+    font-family: monospace;
+    outline: none;
 }
 
 #opt1 {

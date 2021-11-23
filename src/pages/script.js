@@ -103,23 +103,47 @@ const files = {
 }
 
 var cPath
+var lastPath
 
 function initPage(path) {
-    if(new URL(location.href).searchParams.get("s") == "show") {
+    console.log(path)
+    if(path.startsWith("efe:")) {
+        if(path == "efe:settings") {
+            showSettings()
+            document.getElementById("path").value = "Settings Page"
+            return;
+        }
+        else if(path == "efe:terminal") {
+            openTerminal()
+            initPage()
+            return;
+        }
+    } else if(path.startsWith("opn:")) {
+        document.getElementById("fe").innerHTML = `<iframe style="height:400px;width:100%;" src="${path.split("opn:")[1]}"></iframe>`
+        return;
+    }
+
+    if(new URL(location.href).searchParams.get("s") == "show" || path == "settings") {
         showSettings()
+        document.getElementById("path").value = "Settings Page"
         return;
     }
 
     document.getElementById("fe").innerHTML = ""
-    if(new URL(location.href).searchParams.get("path"))  path = new URL(location.href).searchParams.get("path")
-    path = path.replace(/\\\\/g, "\\")
+
+    if(path == "" || path == os.homedir() && new URL(location.href).searchParams.get("path")) path = new URL(location.href).searchParams.get("path")
+    if(path == lastPath && new URL(location.href).searchParams.get("path")) path = new URL(location.href).searchParams.get("path")
+
+    path = path.replace(/\\\\/gm, "\\").replace(/\/\//gm, "/")
     var reqPath
 
     if(fs.existsSync(path)) {
         reqPath = fs.readdirSync(path)
     }
 
-    cPath = path.replace(/\\\\/, "\\").replace(/\/\//, "/")
+    cPath = path
+
+    document.getElementById("path").value = cPath
 
     if(reqPath) {
         reqPath.forEach((file) => {
@@ -267,7 +291,18 @@ function initPage(path) {
             }
         })
     }
+
+    lastPath = path
 }
+
+document.addEventListener("keyup", (e) => {
+    if(e.key == "Enter" || e.which === 13 || e.code == "Enter") {
+        if(document.activeElement.id == "path") {
+            e.preventDefault()
+            initPage(document.getElementById("path").value)
+        }
+    }
+})
 
 function showSettings() {
     console.log("Showing settings...")
@@ -299,12 +334,16 @@ function showSettings() {
 }
 
 function openTerminal() {
-    if(process.platform == "linux") {
-        console.log(`${localStorage.getItem("terminal")} --working-directory=${cPath}`)
-        require("child_process").exec(`${localStorage.getItem("terminal")} --working-directory=${cPath}`)
+    if(!localStorage.getItem("terminal")) {
+        alert("Could not launch terminal! Set the terminal command in settings!")
     }
-    else if(process.platform == "win32") {
-        require("child_process").exec(`${localStorage.getItem("terminal")} cmd.exe /K "cd ${cPath}"`)
+    else if(process.platform == "linux" && localStorage.getItem("terminal") != undefined) {
+        console.log(`${localStorage.getItem("terminal")} --working-directory=${cPath || lastPath}`)
+        require("child_process").exec(`${localStorage.getItem("terminal")} --working-directory=${cPath || lastPath}`)
+    }
+
+    if(process.platform == "win32") {
+        require("child_process").exec(`cmd.exe /K "cd ${cPath || lastPath}"`)
     }
 }
 
@@ -340,4 +379,8 @@ function toggleMaximized() {
 
 function openHome(path) {
     return location.href = `?path=${os.homedir()}${getOSFileDiv()}${path}`
+}
+
+function openDrive(path) {
+    return location.href = `?path=${getOSDrive()}${getOSFileDiv()}${path}`
 }
