@@ -46,7 +46,22 @@ const bin = [
     ".msi"
 ]
 
-var dev = require("./fs.json").showHidden
+var showHidden, showPic, dev
+
+if(localStorage.getItem("showHidden") == "true") {
+    showHidden = true
+    dev = true
+} else {
+    showHidden = false
+    dev = false
+}
+
+if(localStorage.getItem("showPic") == "true") {
+    showPic = true
+} else {
+    showPic = false
+}
+
 
 function getOSDrive() {
     switch(process.platform){
@@ -175,7 +190,7 @@ function initPage(path) {
                     if(file.endsWith(".txt")) img.src = "./assets/bootstrap-icons/file-earmark-text-fill.svg"
                     else if(code.includes(   `.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/file-earmark-code-fill.svg"
                     else if(image.includes(  `.${file.split(".")[file.split(".").length-1]}`)) {
-                        if(require("./fs.json").showPic) img.src = `${path}${getOSFileDiv()}${file}`
+                        if(localStorage.getItem("showPic") == "true") img.src = `${path}${getOSFileDiv()}${file}`
                         else img.src = "./assets/bootstrap-icons/file-earmark-image-fill.svg"
                     }
                     else if(zip.includes(    `.${file.split(".")[file.split(".").length-1]}`)) img.src = "./assets/bootstrap-icons/file-earmark-zip-fill.svg"
@@ -257,38 +272,39 @@ function initPage(path) {
 function showSettings() {
     console.log("Showing settings...")
     document.getElementById("fe").innerHTML = `${fs.readFileSync(__dirname + "/settings.html", 'utf-8')}`
-    document.getElementById("fileSettings").showHidden.checked = require("./fs.json").showHidden
-    document.getElementById("fileSettings").picShow.checked = require("./fs.json").showPic
-    document.getElementById("terminal").value = require("./sys.json").terminal
+    document.getElementById("fileSettings").showHidden.checked = showHidden
+    document.getElementById("fileSettings").picShow.checked = showPic
+    document.getElementById("terminal").value = localStorage.getItem("terminal")
     document.getElementById("opt1").href = `?s=hide&path=${os.homedir()}`
     document.getElementById("opt1").innerHTML = `<img class="icon right" src="./assets/bootstrap-icons/house-door-fill.svg">`
 
     document.getElementById("fileSettings").showHidden.addEventListener("click", (e) => {
-        fs.writeFileSync(__dirname + "/fs.json", JSON.stringify({
-            "showHidden": document.getElementById("fileSettings").showHidden.checked,
-            "showPic": document.getElementById("fileSettings").picShow.checked
-        }))
+        localStorage.setItem("showHidden", document.getElementById("fileSettings").showHidden.checked) 
+        localStorage.setItem("showPic", document.getElementById("fileSettings").picShow.checked)
     })
 
     document.getElementById("terminal").addEventListener("input", (e) => {
-        fs.writeFileSync(__dirname + "/sys.json", JSON.stringify({"terminal": document.getElementById("terminal").value}))
+        localStorage.setItem("terminal", document.getElementById("terminal").value)
     })
 
     document.getElementById("fileSettings").picShow.addEventListener("change", (e) => {
-        fs.writeFileSync(__dirname + "/fs.json", JSON.stringify({
-            "showHidden": document.getElementById("fileSettings").showHidden.checked,
-            "showPic": document.getElementById("fileSettings").picShow.checked
-        }))
+        //fs.writeFileSync(__dirname + "/fs.json", JSON.stringify({
+        //    "showHidden": document.getElementById("fileSettings").showHidden.checked,
+        //    "showPic": document.getElementById("fileSettings").picShow.checked
+        //}))
+
+        localStorage.setItem("showHidden", document.getElementById("fileSettings").showHidden.checked) 
+        localStorage.setItem("showPic", document.getElementById("fileSettings").picShow.checked)
     })
 }
 
 function openTerminal() {
     if(process.platform == "linux") {
-        console.log(`${require("./sys.json").terminal} --working-directory=${cPath}`)
-        require("child_process").exec(`${require("./sys.json").terminal} --working-directory=${cPath}`)
+        console.log(`${localStorage.getItem("terminal")} --working-directory=${cPath}`)
+        require("child_process").exec(`${localStorage.getItem("terminal")} --working-directory=${cPath}`)
     }
     else if(process.platform == "win32") {
-        require("child_process").exec(`${require("./sys.json").terminal} cmd.exe /K "cd ${cPath}"`)
+        require("child_process").exec(`${localStorage.getItem("terminal")} cmd.exe /K "cd ${cPath}"`)
     }
 }
 

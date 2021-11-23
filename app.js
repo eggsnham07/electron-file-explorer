@@ -12,6 +12,7 @@ function createWindow() {
 
     win.loadFile("src/pages/index.html")
     win.setIcon(__dirname + "/build/icon256x256.png")
+    
     if(require("./settings.json").devMode != "true") {
         win.setMenu(null)
     }
