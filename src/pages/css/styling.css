@@ -3,6 +3,12 @@ body {
     background-color: rgb(1, 73, 141);
     height: 100%;
     margin-left: 156px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 body a {
@@ -57,7 +63,7 @@ body a {
 
 .path {
     position: absolute;
-    top: 5px;
+    top: 10px;
     left: 150px;
     background-color: rgb(2, 73, 144);
     border-radius: 10px;

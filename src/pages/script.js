@@ -111,7 +111,7 @@ var lastPath
 
 function initPage(path) {
     console.log(path)
-    if(path.startsWith("efe:")) {
+    if(String(path).startsWith("efe:")) {
         if(path == "efe:settings") {
             showSettings()
             document.getElementById("path").value = "Settings Page"
@@ -119,7 +119,7 @@ function initPage(path) {
         }
         else if(path == "efe:terminal") {
             openTerminal()
-            initPage()
+            initPage(lastPath)
             return;
         }
     } else if(path.startsWith("opn:")) {
