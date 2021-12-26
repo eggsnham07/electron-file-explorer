@@ -314,6 +314,7 @@ function showSettings() {
     document.getElementById("terminal").value = localStorage.getItem("terminal")
     document.getElementById("opt1").href = `?s=hide&path=${os.homedir()}`
     document.getElementById("opt1").innerHTML = `<img class="icon right" src="./assets/bootstrap-icons/house-door-fill.svg">`
+    document.getElementById("updateButton").style.display = "block" 
 
     document.getElementById("fileSettings").showHidden.addEventListener("click", (e) => {
         localStorage.setItem("showHidden", document.getElementById("fileSettings").showHidden.checked) 
