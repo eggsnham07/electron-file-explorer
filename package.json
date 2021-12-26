@@ -5,8 +5,10 @@
   "main": "app.js",
   "build": {
     "appId": "com.eggsnham.efe",
-    "files": ["**/*", "build/icon256x256.*"],
-    
+    "files": [
+      "**/*",
+      "build/icon256x256.*"
+    ],
     "linux": {
       "executableName": "ElectronFileExplorer",
       "icon": "./build/icon256x256.png",
@@ -31,5 +33,8 @@
   "devDependencies": {
     "electron": "^15.3.2",
     "electron-builder": "^22.11.7"
+  },
+  "dependencies": {
+    "github-content": "^1.0.1"
   }
 }

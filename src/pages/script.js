@@ -1,5 +1,3 @@
-const fs = require("fs")
-const os = require("os")
 const { app, ipcRenderer } = require("electron")
 
 
