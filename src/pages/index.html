@@ -5,7 +5,7 @@
         <script>
             const os = require("os")
             const fs = require("fs")
-            if(fs.existsSync(os.homedir() + "/.electron-file-explorer/main-script.js")) document.getElementById("mainjs").innerHTML = fs.readFileSync(os.homedir() + "/.electron-file-explorer/main-script.js")
+            document.getElementById("mainjs").innerHTML = fs.readFileSync(os.homedir() + "/.electron-file-explorer/main-script.js")
         </script>
 
         <link rel="stylesheet" href="./css/styling.css">
@@ -21,7 +21,7 @@
                 <input id="path" class="top path" type="text">
 
                 <a href="?s=show" id="opt1" title="Open settings"><img class="icon right" src="./assets/bootstrap-icons/gear-wide-connected.svg"></a>
-                <a href="javascript:downloadUpdate()" title="Check for updates"><img style="display: block;margin-right: 12px;" id="updateButton" class="icon right" src="./assets/bootstrap-icons/cloud-arrow-down.svg"></a>
+                <a href="javascript:downloadUpdate()" title="Check for updates"><img style="display: none;margin-right: 12px;" id="updateButton" class="icon right" src="./assets/bootstrap-icons/cloud-arrow-down.svg"></a>
             </div>
             <div class="context-menu" id="cm" style="display: none;">
                 <a href="javascript:openTerminal()">Open terminal here</a>
@@ -47,12 +47,7 @@
         </div>
         <script>
             const GithubContent = require("github-content")
-            document.getElementById("updateButton").style.display = "none"
-
-            if(fs.existsSync(os.homedir() + "/.electron-file-explorer/update.txt") == false) {
-                downloadUpdate()
-                console.log("Update avaliable")
-            }
+            document.getElementById("mainjs").innerHTML = fs.readFileSync(os.homedir() + "/.electron-file-explorer/main-script.js")
 
             initPage(os.homedir())
 
