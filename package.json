@@ -1,0 +1,40 @@
+{
+  "name": "electron-file-explorer",
+  "version": "1.0.2",
+  "description": "",
+  "main": "app.js",
+  "build": {
+    "appId": "com.eggsnham.efe",
+    "files": [
+      "**/*",
+      "build/icon256x256.*"
+    ],
+    "linux": {
+      "executableName": "ElectronFileExplorer",
+      "icon": "./build/icon256x256.png",
+      "category": "Utility"
+    },
+    "win": {
+      "icon": "./build/icon256x256.png"
+    }
+  },
+  "scripts": {
+    "test": "electron .",
+    "start": "electron .",
+    "buildWin": "electron-builder --win --x64",
+    "buildLinux": "electron-builder --linux AppImage deb"
+  },
+  "keywords": [],
+  "author": {
+    "name": "eggsnham07",
+    "email": "eggsnham07@gmail.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^15.3.2",
+    "electron-builder": "^22.11.7"
+  },
+  "dependencies": {
+    "github-content": "^1.0.1"
+  }
+}
