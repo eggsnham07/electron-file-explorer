@@ -333,10 +333,6 @@ function showSettings() {
         localStorage.setItem("showHidden", document.getElementById("fileSettings").showHidden.checked) 
         localStorage.setItem("showPic", document.getElementById("fileSettings").picShow.checked)
     })
-
-    while(true) {
-        document.getElementById("updateButton").style.display = "block"
-    }
 }
 
 function openTerminal() {
