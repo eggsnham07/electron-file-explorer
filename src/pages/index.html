@@ -3,9 +3,6 @@
     <head>
         <script>const os = require("os");const fs = require("fs");</script>
         <script id="mainjs"></script>
-        <script>
-            document.getElementById("mainjs").innerHTML = require("fs").readFileSync(require("os").homedir() + "/.electron-file-explorer/main-script.js")
-        </script>
         <link rel="stylesheet" href="./css/styling.css">
     </head>
 
@@ -19,7 +16,7 @@
                 <input id="path" class="top path" type="text">
 
                 <a href="?s=show" id="opt1" title="Open settings"><img class="icon right" src="./assets/bootstrap-icons/gear-wide-connected.svg"></a>
-                <a href="javascript:downloadUpdate()" title="Check for updates"><img style="display: none;margin-right: 12px;" id="updateButton" class="icon right" src="./assets/bootstrap-icons/cloud-arrow-down.svg"></a>
+                <a href="javascript:downloadUpdate(true)" title="Check for updates"><img style="margin-right: 12px;" id="updateButton" class="icon right" src="./assets/bootstrap-icons/cloud-arrow-down.svg"></a>
             </div>
             <div class="context-menu" id="cm" style="display: none;">
                 <a href="javascript:openTerminal()">Open terminal here</a>
@@ -45,8 +42,7 @@
         </div>
         <script>
             const GithubContent = require("github-content")
-
-            initPage(os.homedir())
+            if(!location.href.endsWith("?s=show")) document.getElementById("updateButton").style.display = "none";
 
             document.onclick = hideMenu
             document.oncontextmenu = openMenu
@@ -66,19 +62,22 @@
                 document.getElementById("cm").style.display = "none"
             }
 
-            if(fs.existsSync(os.homedir() + "/.electron-file-explorer/update.txt") == false) {
+            if(fs.existsSync(os.homedir() + "/.electron-file-explorer/update.txt") == false || fs.existsSync(os.homedir() + "/.electron-file-explorer/") == false) {
+                alert("Downloading required files to run!\nPlease make sure you are connected to the internet.")
                 downloadUpdate()
-                console.log("Update avaliable")
             }
             else if( Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8")) < new Date().getDate()) {
                 document.getElementById("updateButton").style.display = "block"
                 console.log("Update avaliable")
             } else {
                 console.log(Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8")))
+                document.getElementById("mainjs").innerHTML = require("fs").readFileSync(require("os").homedir() + "/.electron-file-explorer/main-script.js")
+                initPage(os.homedir())
             }
 
 
-            function downloadUpdate() {
+
+            function downloadUpdate(cfu) {
                 if(!fs.existsSync(os.homedir() + "/.electron-file-explorer/")) fs.mkdirSync(os.homedir() + "/.electron-file-explorer/")
                 
                 const ops = {
@@ -90,7 +89,7 @@
                 var github = new GithubContent(ops)
 
                 github.file("src/pages/script.js", (err, file) => {
-                    if(err) return console.log(err)
+                    if(err) return alert(err + "\n\nYou may not be connected to the internet...")
                     fs.writeFileSync(os.homedir() + "/.electron-file-explorer/main-script.js", file.contents)
                     fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", String(new Date().getDate()))
 
@@ -98,6 +97,9 @@
                         "Updated!",
                         Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8"))
                     )
+
+                    if(cfu == true) alert("App should have the latest update now!")
+                    else alert("Finished downloading required files!")
 
                     window.location.reload()
                 })
