@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>const os = require("os");const fs = require("fs");</script>
         <script id="mainjs"></script>
         <script>
-            const os = require("os")
-            const fs = require("fs")
-            document.getElementById("mainjs").innerHTML = fs.readFileSync(os.homedir() + "/.electron-file-explorer/main-script.js")
+            document.getElementById("mainjs").innerHTML = require("fs").readFileSync(require("os").homedir() + "/.electron-file-explorer/main-script.js")
         </script>
-
         <link rel="stylesheet" href="./css/styling.css">
     </head>
 
@@ -47,7 +45,6 @@
         </div>
         <script>
             const GithubContent = require("github-content")
-            document.getElementById("mainjs").innerHTML = fs.readFileSync(os.homedir() + "/.electron-file-explorer/main-script.js")
 
             initPage(os.homedir())
 
