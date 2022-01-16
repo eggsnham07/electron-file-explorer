@@ -36,6 +36,12 @@ function createWindow() {
         else if(arg == "mini") {
             win.minimize()
         }
+        else if(arg == "dev mode") {
+            win.setMenu()
+        }
+        else if(arg == "dev mode off") {
+            win.setMenu(null)
+        }
     })
 }
 

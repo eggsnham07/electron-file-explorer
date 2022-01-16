@@ -140,6 +140,8 @@ main#fe {
     background-color: #666;
     border: 1px solid #333;
     border-radius: 5px;
+    width: 200px;
+    height: 200px;
 }
 
 .context-menu ul {

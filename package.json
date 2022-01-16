@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "test": "electron .",
+    "test": "DEV=true electron .",
     "start": "electron .",
     "buildWin": "electron-builder --win --x64",
     "buildLinux": "electron-builder --linux AppImage deb"

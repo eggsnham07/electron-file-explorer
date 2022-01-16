@@ -3,11 +3,6 @@
         background-color: rgb(1, 73, 144);
     }
 </style>
-<script>
-    window.addEventListener("load", (e) => {
-        document.getElementById("updateButton").style.display = "block"
-    })
-</script>
 <form id="fileSettings">
     <label>Show hidden files: </label><input type="checkbox" id="showHidden">
     <br>
@@ -18,3 +13,9 @@
 <form id="sysSettings">
     <label>Default Terminal: </label><input type="text" id="terminal" placeholder="command-to-open-terminal">
 </form>
+
+<script>
+    window.addEventListener("load", (e) => {
+        document.getElementById("updateButton").style.display = "block"
+    })
+</script>
