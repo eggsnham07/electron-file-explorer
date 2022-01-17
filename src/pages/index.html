@@ -81,7 +81,7 @@
                 if(!fs.existsSync(os.homedir() + "/.electron-file-explorer/")) fs.mkdirSync(os.homedir() + "/.electron-file-explorer/")
                 //TODO: Add script for downloading updates!
                 const script = fs.createWriteStream(`${os.homedir()}/.electron-file-explorer/script.js`)
-                const req = http.get("https://github.com/eggsnham07/electron-file-explorer/main/DLC/script.js", (res) => {
+                const req = http.get("https://raw.githubusercontent.com/eggsnham07/electron-file-explorer/main/DLC/script.js", (res) => {
                     res.pipe(script)
                     fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", new Date().getDate().toString())
                     if(cfu) alert("App should be up to date now!")
