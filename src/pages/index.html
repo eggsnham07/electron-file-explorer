@@ -86,6 +86,8 @@
                     fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", new Date().getDate().toString())
                     if(cfu) alert("App should be up to date now!")
                     else alert("Done installing required files for the app to run!")
+
+                    window.location.reload()
                 })
             }
         </script>

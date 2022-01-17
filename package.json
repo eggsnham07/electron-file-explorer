@@ -4,11 +4,31 @@
   "description": "A file explorer built with electron",
   "main": "app.js",
   "repository": "https://github.com/eggsnham07/electron-file-explorer",
-  "author": "eggsnham07 <eggsnham07@gmail.com>",
+  "author": {
+    "name": "eggsnham07",
+    "email": "eggsnham07@gmail.com"
+  },
   "license": "MIT",
   "private": false,
+  "build": {
+    "appId": "com.eggsnham.ElectronFileExplorer",
+    "files": [
+      "**/*",
+      "build/icon256x256.*"
+    ],
+
+    "win": {
+      "icon": "./build/icon256x256.png"
+    },
+    "linux": {
+      "icon": "./build/icon256x256.png",
+      "category": "Utility"
+    }
+  },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:linux": "electron-builder -l deb AppImage",
+    "build:win": "electron-builder -w msi"
   },
   "devDependencies": {
     "electron": "^16.0.7",
