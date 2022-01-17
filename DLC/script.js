@@ -92,6 +92,9 @@ function launchApp(path) {
     console.log(`Launching: '${programStarter()}"${path}"'`)
     if(path.endsWith(".exe")) {
         require("child_process").execSync(`start "${path}"`)
+    }
+    else if(path.endsWith(".64") || path.endsWith(".x86_64") || path.endsWith(".sh")) {
+        require("child_process").execSync(`${path}`)
     } else {
         require("child_process").execSync(`${programStarter()}"${path}"`)
     }
