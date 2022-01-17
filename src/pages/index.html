@@ -41,7 +41,6 @@
             <main id="fe"></main>
         </div>
         <script>
-            const GithubContent = require("github-content")
             if(!location.href.endsWith("?s=show")) document.getElementById("updateButton").style.display = "none";
 
             document.onclick = hideMenu
@@ -71,47 +70,23 @@
                 console.log("Update avaliable")
             } else {
                 console.log(Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8")))
-                document.getElementById("mainjs").innerHTML = require("fs").readFileSync(require("os").homedir() + "/.electron-file-explorer/main-script.js")
+                document.getElementById("mainjs").innerHTML = require("fs").readFileSync(require("os").homedir() + "/.electron-file-explorer/script.js")
                 initPage(os.homedir())
             }
 
 
 
             function downloadUpdate(cfu) {
+                const http = require("https")
                 if(!fs.existsSync(os.homedir() + "/.electron-file-explorer/")) fs.mkdirSync(os.homedir() + "/.electron-file-explorer/")
-                
-                const ops = {
-                    owner: "eggsnham07",
-                    repo: "electron-file-explorer",
-                    branch: "main"
-                }
-
-                var github = new GithubContent(ops)
-
-                github.file("src/pages/script.js", (err, file) => {
-                    if(err) return alert(err + "\n\nYou may not be connected to the internet...")
-                    fs.writeFileSync(os.homedir() + "/.electron-file-explorer/main-script.js", file.contents)
-                    fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", String(new Date().getDate()))
-
-                    console.log(
-                        "Updated!",
-                        Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8"))
-                    )
-
-                    if(cfu == true) alert("App should have the latest update now!")
-                    else alert("Finished downloading required files!")
-
-                    window.location.reload()
+                //TODO: Add script for downloading updates!
+                const script = fs.createWriteStream(`${os.homedir()}/.electron-file-explorer/script.js`)
+                const req = http.get("https://github.com/eggsnham07/electron-file-explorer/main/DLC/script.js", (res) => {
+                    res.pipe(script)
+                    fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", new Date().getDate().toString())
+                    if(cfu) alert("App should be up to date now!")
+                    else alert("Done installing required files for the app to run!")
                 })
-
-
-                /*
-                fs.writeFileSync(os.homedir() + "/.electron-file-explorer/update.txt", new Date().getDate())
-                console.log(
-                    "Updated!",
-                    Number(fs.readFileSync(os.homedir() + "/.electron-file-explorer/update.txt", "utf-8")) < new Date().getDate()
-                )
-                */
             }
         </script>
     </body>
