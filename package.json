@@ -28,7 +28,8 @@
   "scripts": {
     "start": "electron .",
     "build:linux": "electron-builder -l deb AppImage",
-    "build:win": "electron-builder -w msi"
+    "build:win": "electron-builder -w msi",
+    "cp:linux": "cp -r ./DLC/script.js ~/.electron-file-explorer/script.js"
   },
   "devDependencies": {
     "electron": "^16.0.7",

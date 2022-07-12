@@ -1,4 +1,4 @@
-const { app, ipcRenderer } = require("electron")
+const { ipcRenderer } = require("electron")
 
 
 
@@ -111,6 +111,10 @@ var cPath
 var lastPath
 
 function initPage(path) {
+    if(!fs.existsSync(`${os.homedir()}/.electron-file-explorer/settings.json`)) {
+        fs.writeFileSync(`${os.homedir()}/.electron-file-explorer/settings.json`, JSON.stringify({contextMenuActions:[{"name":"YOUR-ACTION-NAME","command":"COMMAND-FOR-ACTION"}]}))
+    }
+
     console.log(path)
     if(String(path).startsWith("efe:")) {
         if(path == "efe:settings") {
@@ -123,8 +127,8 @@ function initPage(path) {
             initPage(lastPath)
             return;
         }
-    } else if(path.startsWith("opn:")) {
-        document.getElementById("fe").innerHTML = `<iframe style="height:400px;width:100%;" src="${path.split("opn:")[1]}"></iframe>`
+    } else if(path.startsWith("open:")) {
+        document.getElementById("fe").innerHTML = `<iframe style="height:400px;width:100%;" src="${path.split("open:")[1]}"></iframe>`
         return;
     }
 
@@ -143,7 +147,7 @@ function initPage(path) {
     var reqPath
 
     if(fs.existsSync(path)) {
-        reqPath = fs.readdirSync(path)
+        reqPath = fs.readdirSync(path).sort()
     }
 
     cPath = path
@@ -317,6 +321,7 @@ function showSettings() {
     document.getElementById("terminal").value = localStorage.getItem("terminal")
     document.getElementById("opt1").href = `?s=hide&path=${os.homedir()}`
     document.getElementById("opt1").innerHTML = `<img class="icon right" src="./assets/bootstrap-icons/house-door-fill.svg">`
+    document.getElementById("variables").value = localStorage.getItem("variables")
 
     document.getElementById("fileSettings").showHidden.addEventListener("click", (e) => {
         localStorage.setItem("showHidden", document.getElementById("fileSettings").showHidden.checked) 
@@ -325,6 +330,10 @@ function showSettings() {
 
     document.getElementById("terminal").addEventListener("input", (e) => {
         localStorage.setItem("terminal", document.getElementById("terminal").value)
+    })
+
+    document.getElementById("variables").addEventListener("input", (e) => {
+        localStorage.setItem("variables", String(document.getElementById("variables").value).split(","))
     })
 
     document.getElementById("fileSettings").picShow.addEventListener("change", (e) => {
@@ -390,4 +399,20 @@ function openHome(path) {
 
 function openDrive(path) {
     return location.href = `?path=${getOSDrive()}${getOSFileDiv()}${path}`
+}
+
+function doAction(action) {
+    const childProcess = require("child_process");
+    const env = Array(localStorage.getItem("variables"))
+    env.forEach(variable => {
+        action = action.replace(`{${variable.split(":")[0]}}`, `${variable.split(":")[1]}`)
+    })
+
+    action = action.replace("{cwd}", cPath)
+    
+    try {
+        childProcess.execSync(action)
+    } catch(err) {
+        console.error(err)
+    }
 }

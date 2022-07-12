@@ -1,3 +1,8 @@
 {
-  "devMode": "false"
+  "devMode": "true",
+  "contextMenuActions": [
+    {
+      "Open in Godot": "{gdexe} --path {folder}"
+    }
+  ]
 }

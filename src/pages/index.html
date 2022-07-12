@@ -79,7 +79,6 @@
             function downloadUpdate(cfu) {
                 const http = require("https")
                 if(!fs.existsSync(os.homedir() + "/.electron-file-explorer/")) fs.mkdirSync(os.homedir() + "/.electron-file-explorer/")
-                //TODO: Add script for downloading updates!
                 const script = fs.createWriteStream(`${os.homedir()}/.electron-file-explorer/script.js`)
                 const req = http.get("https://raw.githubusercontent.com/eggsnham07/electron-file-explorer/main/DLC/script.js", (res) => {
                     res.pipe(script)
@@ -89,6 +88,25 @@
 
                     window.location.reload()
                 })
+            }
+
+            const contextMenu = document.getElementById("cm")
+            const settings = JSON.parse(fs.readFileSync(`${os.homedir()}/.electron-file-explorer/settings.json`))
+
+            contextMenu.innerHTML = ""
+            for(var i = 0; i <= settings.contextMenuActions.length - 1; i++) {
+                var cma = {
+                    name: settings.contextMenuActions[i].name,
+                    command: settings.contextMenuActions[i].command,
+                }
+
+                console.log(cma)
+                const anchor = document.createElement("a")
+                const br = document.createElement("br")
+                anchor.href = `javascript:doAction("${cma.command}", Array(${cma.conditions}))`
+                anchor.innerText = cma.name
+                contextMenu.appendChild(anchor)
+                contextMenu.appendChild(br)
             }
         </script>
     </body>
